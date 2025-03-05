@@ -10,12 +10,12 @@ import (
 	"time"
 )
 
-func StartServer() {
+func StartServer(host *string, port *string) {
 	ctx := context.Background()
 	logger := slog.New(slog.NewJSONHandler(os.Stdout, nil))
 
 	srv := &http.Server{
-		Addr:              "127.0.0.1:3000",
+		Addr:              net.JoinHostPort(*host, *port),
 		IdleTimeout:       5 * time.Minute,
 		ReadHeaderTimeout: time.Minute,
 		Handler:           http.TimeoutHandler(NewServer(logger), 2*time.Minute, ""),

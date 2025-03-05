@@ -1,9 +1,15 @@
 package main
 
 import (
-	"network.programming/httpserver"
+	"flag"
+
+	"proto.proxy/httpserver"
 )
 
 func main() {
-	httpserver.StartServer()
+	host := flag.String("host", "127.0.0.1", "ip addres/host to run on")
+	port := flag.String("port", "3000", "port")
+	flag.Parse()
+
+	httpserver.StartServer(host, port)
 }
